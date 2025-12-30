@@ -7,7 +7,7 @@
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5\&logoColor=white)](#)
 [![Canvas](https://img.shields.io/badge/Canvas-2D-lightgrey)](#)
 
-🔗 **Live Web App:** [https://aliriyaj007.github.io/Cosmoslens/](https://aliriyaj007.github.io/Cosmoslens/)
+🔗 **Live Web App:** [https://aliriyaj007.github.io/CosmosLens/](https://aliriyaj007.github.io/CosmosLens/)
 
 ---
 
@@ -72,7 +72,7 @@ It is designed to be:
 Open the live app:
 
 ```
-https://aliriyaj007.github.io/Cosmoslens/
+https://aliriyaj007.github.io/CosmosLens/
 ```
 
 No login. No setup. Works instantly.
@@ -82,8 +82,8 @@ No login. No setup. Works instantly.
 ### Option 2: Run Locally (Offline)
 
 ```bash
-git clone https://github.com/Aliriyaj007/Cosmoslens.git
-cd Cosmoslens
+git clone https://github.com/Aliriyaj007/CosmosLens.git
+cd CosmosLens
 ```
 
 Open `index.html` in **any modern browser**.
