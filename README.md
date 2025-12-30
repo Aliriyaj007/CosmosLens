@@ -2,7 +2,6 @@
 
 **An offline-first, browser-native 3D simulator for exploring planetary systems — built for clarity, teaching, and intuition.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Offline First](https://img.shields.io/badge/Offline-First-success)](#)
 [![Vanilla JS](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript\&logoColor=black)](#)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5\&logoColor=white)](#)
@@ -148,14 +147,15 @@ This project favors **clarity over cleverness**.
 
 ## Contributing
 
-Contributions are welcome if they:
+This project is not open for unrestricted contributions.
 
-* Preserve simplicity
-* Improve clarity or correctness
-* Avoid unnecessary dependencies
+If you want to:
 
-Open an issue or submit a PR with a clear explanation.
+* Suggest improvements
+* Fix bugs
+* Discuss extensions or professional licensing
 
+Open an issue or contact the author directly.
 ---
 
 ## Author & Contact
@@ -172,8 +172,24 @@ Open an issue or submit a PR with a clear explanation.
 ---
 
 ## License
+### ⚠️ Personal Use Only License
 
-MIT License — free to use, modify, and share.
+**CosmosLens is NOT open-source.**
+
+### You are allowed to:
+- Use the project for **personal, non-commercial learning**
+- Explore and study the source code **privately**
+
+### You are NOT allowed to:
+- Use it for **commercial or professional purposes**
+- Include it in **paid courses, platforms, or products**
+- **Redistribute, resell, or sublicense** the code
+- Use it in **institutional, corporate, or client work**
+
+For full terms, see the `LICENSE` file.
+
+📩 **Commercial or professional usage requires explicit permission.**
+
 
 ---
 
