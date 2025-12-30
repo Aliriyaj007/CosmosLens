@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Time Reality Check</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+<style>
+/* ==================================================
+   FUTURISTIC MINIMAL DESIGN SYSTEM
+================================================== */
+:root{
+  --bg-main:#0b0d12;
+  --bg-panel:#141722;
+  --bg-panel-2:#1b1f2e;
+  --bg-soft:#222742;
+
+  --text-primary:#e9ebf1;
+  --text-secondary:#a3a8c3;
+  --text-muted:#6c7194;
+
+  --accent:#5b7cfa;
+  --accent-glow:rgba(91,124,250,0.35);
+  --success:#22c55e;
+  --danger:#ff5c5c;
+
+  --radius-lg:18px;
+  --radius:12px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,sans-serif;
+  background:radial-gradient(1200px 600px at 20% -10%,#1a1f35 0%,var(--bg-main) 40%);
+  color:var(--text-primary);
+}
+
+/* ==================================================
+   LAYOUT
+================================================== */
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  backdrop-filter:blur(12px);
+  background:rgba(11,13,18,.7);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:14px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  font-weight:700;
+  letter-spacing:.3px;
+}
+.brand-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 12px var(--accent-glow);
+}
+.header-actions button{
+  background:none;
+  border:none;
+  color:var(--text-secondary);
+  margin-left:14px;
+  cursor:pointer;
+  font-size:13px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:28px 22px 40px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:22px;
+}
+
+.card{
+  background:linear-gradient(180deg,var(--bg-panel),var(--bg-panel-2));
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius-lg);
+  padding:22px;
+  box-shadow:0 10px 40px rgba(0,0,0,.25);
+}
+
+.card h3{
+  margin:0 0 14px;
+  font-size:14px;
+  color:var(--text-secondary);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+label{
+  font-size:12px;
+  color:var(--text-muted);
+}
+input,select{
+  width:100%;
+  padding:12px;
+  margin:6px 0 16px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.08);
+  background:var(--bg-soft);
+  color:var(--text-primary);
+}
+
+button.primary{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--accent),#8aa2ff);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 0 20px var(--accent-glow);
+}
+
+.timer{
+  text-align:center;
+  font-family:JetBrains Mono,monospace;
+  font-size:56px;
+  margin:18px 0 8px;
+}
+
+.subtle{
+  font-size:12px;
+  color:var(--text-muted);
+  text-align:center;
+}
+
+.stat-row{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+.bias-bar{
+  height:12px;
+  background:rgba(255,255,255,.06);
+  border-radius:10px;
+  overflow:hidden;
+  margin:8px 0 14px;
+}
+.bias-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),#9db0ff);
+}
+
+.week-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
+}
+.day{
+  padding:10px 6px;
+  border-radius:10px;
+  background:rgba(255,255,255,.05);
+  text-align:center;
+  font-size:12px;
+}
+
+.history{
+  margin-top:16px;
+  font-size:13px;
+  color:var(--text-secondary);
+}
+
+footer{
+  text-align:center;
+  font-size:12px;
+  color:var(--text-muted);
+  margin:40px 0 10px;
+}
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand"><span class="brand-dot"></span>Time Reality Check</div>
+    <div class="header-actions">
+      <button onclick="openGuide()">Guide</button>
+      <button onclick="cycleTheme()">Theme</button>
+      <button onclick="exportJSON()">JSON</button>
+      <button onclick="exportCSV()">CSV</button>
+      <button onclick="importData()">Import</button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="card" id="taskCard">
+      <h3>New Session</h3>
+      <label>Task name</label>
+      <input id="taskName" placeholder="e.g. Study Algorithms" />
+
+      <label>Category</label>
+      <select id="category"><option>Study</option><option>Work</option><option>Personal</option><option>Admin</option></select>
+
+      <label>Estimated time (minutes)</label>
+      <input id="estimate" type="number" placeholder="30" />
+
+      <button class="primary" onclick="startTimer()">Start Focus Session</button>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="card" id="timerCard" style="display:none">
+      <h3>Active Session</h3>
+      <div class="timer" id="timer">00:00</div>
+      <div class="subtle" id="activeTask"></div>
+      <button class="primary" style="background:linear-gradient(135deg,var(--danger),#ff8a8a);margin-top:14px" onclick="stopTimer()">End Session</button>
+    </div>
+
+  </div>
+
+  <div class="grid" style="margin-top:22px">
+
+    <div class="card" id="resultCard">
+      <h3>Reality Check</h3>
+      <div id="resultContent" class="subtle">Complete a session to see results.</div>
+    </div>
+
+    <div class="card" id="biasCard">
+      <h3>Calibration Engine</h3>
+      <div class="subtle">Data builds clarity over time.</div>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:22px">
+    <h3>Weekly Bias Snapshot</h3>
+    <div class="week-grid" id="weekGrid"></div>
+  </div>
+
+  <div class="card" style="margin-top:22px">
+    <h3>Recent Sessions</h3>
+    <div class="history" id="history"></div>
+  </div>
+
+</div>
+
+<footer>Offline-first • All data stays on your device • No tracking</footer>
+
+<div class="modal" id="guide"></div>
+
+<script>
+/* ==================================================
+   STATE
+================================================== */
+let startTime,interval;
+let history=JSON.parse(localStorage.getItem('trc_history')||'[]');
+let themes=['dark','light','paper','terminal','midnight','slate','contrast'];
+let themeIndex=0;
+
+/* ==================================================
+   TIMER
+================================================== */
+function startTimer(){
+  if(!taskName.value||!estimate.value)return alert('Fill all fields');
+  startTime=Date.now();
+  activeTask.textContent=`Working on: ${taskName.value}`;
+  taskCard.style.display='none';
+  timerCard.style.display='block';
+  interval=setInterval(updateTimer,1000);
+}
+function updateTimer(){
+  let d=Math.floor((Date.now()-startTime)/1000);
+  timer.textContent=`${String(Math.floor(d/60)).padStart(2,'0')}:${String(d%60).padStart(2,'0')}`;
+}
+function stopTimer(){
+  clearInterval(interval);
+  let actual=Math.max(1,Math.floor((Date.now()-startTime)/60000));
+  let est=Number(estimate.value);
+  history.unshift({task:taskName.value,cat:category.value,est,actual,ts:new Date().toISOString()});
+  localStorage.setItem('trc_history',JSON.stringify(history));
+  taskCard.style.display='block';
+  timerCard.style.display='none';
+  renderResult(est,actual);
+  renderBias();
+  renderWeekly();
+  renderHistory();
+}
+
+/* ==================================================
+   ANALYTICS
+================================================== */
+function renderResult(est,actual){
+  let diff=actual-est;
+  resultContent.innerHTML=`
+    <div class='stat-row'><span>Estimated</span><span>${est} min</span></div>
+    <div class='stat-row'><span>Actual</span><span>${actual} min</span></div>
+    <div class='stat-row'><strong>Difference</strong><strong style='color:${diff>0?'var(--danger)':'var(--success)'}'>${diff>0?'+':''}${diff} min</strong></div>`;
+}
+
+function renderBias(){
+  if(history.length<3){biasCard.innerHTML='<h3>Calibration Engine</h3><div class="subtle">Not enough data yet.</div>';return}
+  let recent=history.slice(0,7);
+  let sum=0;recent.forEach(h=>sum+=(h.actual-h.est)/h.est);
+  let roll=Math.round(sum/recent.length*100);
+  let byCat={};
+  history.forEach(h=>{byCat[h.cat]=byCat[h.cat]||[];byCat[h.cat].push((h.actual-h.est)/h.est)});
+  let html=`<h3>Calibration Engine</h3><div class='subtle'>Rolling bias: ${roll>0?'Under':'Over'} ~${Math.abs(roll)}%</div><div class='bias-bar'><div class='bias-fill' style='width:${Math.min(100,Math.abs(roll))}%'></div></div>`;
+  for(let c in byCat){
+    let avg=Math.round(byCat[c].reduce((a,b)=>a+b,0)/byCat[c].length*100);
+    let last=history.find(h=>h.cat===c);
+    let next=last?Math.round(last.est*(1+avg/100)):'';
+    html+=`<div class='stat-row'><span>${c}</span><span>Next: ${next} min</span></div>`;
+  }
+  biasCard.innerHTML=html;
+}
+
+function renderWeekly(){
+  let days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  let map={};days.forEach(d=>map[d]=[]);
+  history.forEach(h=>{let d=new Date(h.ts).toLocaleDateString('en-US',{weekday:'short'});if(map[d])map[d].push((h.actual-h.est)/h.est)});
+  weekGrid.innerHTML='';
+  days.forEach(d=>{
+    let arr=map[d];
+    if(arr.length===0){weekGrid.innerHTML+=`<div class='day'>${d}<br>-</div>`}
+    else{let avg=Math.round(arr.reduce((a,b)=>a+b,0)/arr.length*100);weekGrid.innerHTML+=`<div class='day'>${d}<br>${avg>0?'+':''}${avg}%</div>`}
+  });
+}
+
+function renderHistory(){
+  history.innerHTML=history.slice(0,6).map(h=>`${h.task} (${h.cat}) — ${h.est} → ${h.actual}`).join('<br>');
+}
+
+/* ==================================================
+   UTILITIES
+================================================== */
+function cycleTheme(){themeIndex=(themeIndex+1)%themes.length;document.body.dataset.theme=themes[themeIndex]}
+function exportJSON(){download(new Blob([JSON.stringify({history},null,2)],{type:'application/json'}),'time-reality-check.json')}
+function exportCSV(){let rows=['task,category,estimated,actual,timestamp'];history.forEach(h=>rows.push(`${h.task},${h.cat},${h.est},${h.actual},${h.ts}`));download(new Blob([rows.join('\n')],{type:'text/csv'}),'time-reality-check.csv')}
+function importData(){let i=document.createElement('input');i.type='file';i.accept='.json';i.onchange=e=>{let r=new FileReader();r.onload=()=>{let d=JSON.parse(r.result);history=d.history||[];localStorage.setItem('trc_history',JSON.stringify(history));renderBias();renderWeekly();renderHistory()};r.readAsText(e.target.files[0])};i.click()}
+function download(blob,name){let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click()}
+function openGuide(){alert('Estimate → Work → Measure → Calibrate. All data stays on your device.')}
+
+renderBias();renderWeekly();renderHistory();
+</script>
+</body>
+</html>
