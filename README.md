@@ -161,9 +161,13 @@ Open an issue or submit a PR with a clear explanation.
 ## Author & Contact
 
 **Author:** Riyajul Ali
+
 **GitHub:** [https://github.com/Aliriyaj007](https://github.com/Aliriyaj007)
+
 **Email:** [aliriyaj007@protonmail.com](mailto:aliriyaj007@protonmail.com)
+
 **LinkedIn:** [https://linkedin.com/in/Aliriyaj007](https://linkedin.com/in/Aliriyaj007)
+
 
 ---
 
